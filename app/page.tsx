@@ -16,6 +16,8 @@ import { graphQLClient } from "@/clients/api";
 import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
 import { useCurrentUser } from "@/hooks/user";
 import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image"
+import avatar from "/public/user.png"
 
   interface sideBarBtn {
     title: string;
@@ -66,6 +68,7 @@ export default function Home() {
     const {user} = useCurrentUser();
     const queryClient = useQueryClient();
 
+
   const handleLoginWithGoogle = useCallback(
     async (cred: CredentialResponse) => {
       const googleToken = cred.credential;
@@ -87,7 +90,7 @@ export default function Home() {
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-2"></div>
-      <div className="col-span-2 h-screen py-5">
+      <div className="col-span-2 h-screen py-5 relative">
         <div className=" rounded-full overflow-hidden hover:bg-gray-800 w-fit transition-all cursor-pointer">
           <FaTwitter className="text-5xl my-auto p-2"/>
         </div>
@@ -105,6 +108,28 @@ export default function Home() {
         onClick={() => console.log("Post button clicked")}>
               Post
         </button>
+        {user && (
+          <div className="bg-gray-900 bg-opacity-40 w-48 h-16 p-2 rounded-full flex gap-2 items-center absolute bottom-5">
+            <Image 
+            src={user?.profileImageURL || avatar}
+            alt="user"
+            width={40}
+            height={40}
+            className="rounded-full"
+            />
+
+            <div className="">
+              <p className="">{
+                user?.firstName && user?.lastName ? 
+                user.firstName.length + user.lastName.length <= 12 ? 
+                `${user.firstName} ${user.lastName}` :
+                `${user.firstName} ${user.lastName}`.slice(0, 10) + "..." : ""
+                }</p>
+              <p className="text-gray-600">@username</p>
+            </div>
+
+          </div>
+        )}
       </div>
       <div className="col-span-4 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
         <FeedCard/>
