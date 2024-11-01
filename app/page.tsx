@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React, { useCallback } from "react";
 import { FaTwitter } from "react-icons/fa6";
 import { RiHome6Fill } from "react-icons/ri";
 import { FaHashtag } from "react-icons/fa6";
@@ -10,6 +10,12 @@ import { FaRegBookmark } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import FeedCard from "@/components/FeedCard";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import toast from "react-hot-toast";
+import { graphQLClient } from "@/clients/api";
+import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
+import { useCurrentUser } from "@/hooks/user";
+import { useQueryClient } from "@tanstack/react-query";
 
   interface sideBarBtn {
     title: string;
@@ -55,7 +61,29 @@ import FeedCard from "@/components/FeedCard";
     },
   ]
 
-export default function Home() {
+
+export default function Home() {    
+    const {user} = useCurrentUser();
+    const queryClient = useQueryClient();
+
+  const handleLoginWithGoogle = useCallback(
+    async (cred: CredentialResponse) => {
+      const googleToken = cred.credential;
+      if(!googleToken) return toast.error("Google token not found");
+
+      const { verifyGoogleToken } = await graphQLClient.request(verifyUserGoogleTokenQuery, {token: googleToken});
+
+      toast.success("Verified Success");
+      console.log(verifyGoogleToken);
+      
+      if(verifyGoogleToken){
+        window.localStorage.setItem("social_token", verifyGoogleToken);
+      }
+      await queryClient.invalidateQueries({queryKey: ["curent-user"]})
+      
+    }, [queryClient]
+  )
+
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-2"></div>
@@ -66,7 +94,7 @@ export default function Home() {
         <div>
           <ul>
             {(sideBarBtnItems.map(item =>
-            <li className="flex items-center gap-2 my-1 hover:bg-gray-900 hover:bg-opacity-60 w-fit py-2 px-3 rounded-xl transition-all ease-out duration-300 cursor-pointer">
+            <li key={item.title} className="flex items-center gap-2 my-1 hover:bg-gray-900 hover:bg-opacity-60 w-fit py-2 px-3 rounded-xl transition-all ease-out duration-300 cursor-pointer">
               <span className="text-lg">{item.icon}</span>
               <span className="text-lg">{item.title}</span>
             </li>))}
@@ -86,7 +114,12 @@ export default function Home() {
         <FeedCard/>
         <FeedCard/>
       </div>
-      <div className="col-span-2 h-screen"></div>
+      <div className="col-span-2 h-screen p-4 text-center">
+      {user === null ? (<div>
+          <h1 className="font-semibold text-xl mb-5 mt-2">Sign In</h1>
+          <GoogleLogin onSuccess={handleLoginWithGoogle}/>
+        </div>): <div></div> }
+      </div>
       <div className="col-span-2"></div>
     </div>
   );
