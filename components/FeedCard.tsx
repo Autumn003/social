@@ -32,7 +32,7 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
                     <div>
                         {data.content}
                     </div>
-                    <div className="flex w-fit gap-14 mt-1">
+                    <div className="flex w-fit sm:gap-14 gap-10 mt-1">
                         <div className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-pink-400 hover:bg-opacity-30 hover:text-pink-600 transition-all cursor-pointer duration-200 ease-linear">
                             <FaRegHeart className="text-lg "/>
 

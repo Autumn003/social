@@ -60,6 +60,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ClientProviders from "./ClientProviders";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Leftbar } from "@/components/Leftbar";
+import { Rightbar } from "@/components/Rightbar";
 
 const googleAuthClientID = process.env.GoogleClientID || "";
 
@@ -88,7 +90,16 @@ export default function RootLayout({
     <html lang="en">
       <GoogleOAuthProvider clientId={googleAuthClientID}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ClientProviders>{children}</ClientProviders>
+        <ClientProviders>
+          <div className="grid grid-cols-12">
+            <div className="sm:col-span-2 sm:block hidden"></div>
+            <Leftbar/>
+            {children}
+            <Rightbar/>
+            <div className="sm:col-span-2 sm:block hidden"></div>
+
+          </div>
+        </ClientProviders>
       </body>
       </GoogleOAuthProvider>
     </html>

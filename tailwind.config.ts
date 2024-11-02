@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      rotate: {
+        25: '25deg',
+      },
     },
   },
   plugins: [],
