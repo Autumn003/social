@@ -33,7 +33,7 @@ export default function Home() {
   }
 
   return (
-    <div className="sm:col-span-4 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
+    <div className="xl:col-span-4 md:col-span-7 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
       <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
         <div className=" col-span-2 mx-auto">
             <Image

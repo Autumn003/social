@@ -34,7 +34,7 @@ export const Rightbar = () => {
       )
 
     return (
-        <div className="sm:col-span-2 sm:block hidden h-screen p-4 text-center">
+        <div className="sm:col-span-2 xl:block hidden h-screen p-4 text-center">
       {user === null ? (<div>
           <h1 className="font-semibold text-xl mb-5 mt-2">Sign In</h1>
           <GoogleLogin onSuccess={handleLoginWithGoogle}/>
