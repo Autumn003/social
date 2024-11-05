@@ -6,6 +6,7 @@ import { FaRetweet } from "react-icons/fa6";
 import { HiOutlineShare } from "react-icons/hi";
 import { Tweet } from "@/gql/graphql";
 import avatar from "@/public/user.png"
+import Link from "next/link";
 
 
 interface feedCardProp {
@@ -18,7 +19,7 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
     return (
         <>
             <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
-                <div className=" col-span-2 mx-auto">
+                <Link href={`/${data.author?.id}`} className=" col-span-2 mx-auto">
                     <Image
                     src={data.author?.profileImageURL || avatar}
                     width={40}
@@ -26,9 +27,11 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
                     alt="avatar"
                     className="rounded-full"
                     />
-                </div>
+                </Link>
                 <div className="col-span-10">
-                    <div className="font-semibold">{data.author?.firstName} {data.author?.lastName}</div>
+                    <Link href={`/${data.author?.id}`} className="font-semibold">
+                        {data.author?.firstName} {data.author?.lastName}
+                    </Link>
                     <div>
                         {data.content}
                     </div>

@@ -1,15 +1,19 @@
-"use client"
-
 import { IoArrowBackOutline } from "react-icons/io5";
 import { PiCalendarDotsLight } from "react-icons/pi";
 import Image from "next/image"
-import { useCurrentUser } from "@/hooks/user";
 import avatar from "@/public/user.png"
 import FeedCard from "@/components/FeedCard";
 import { Tweet } from "@/gql/graphql";
+import { fetchUserInfo } from "@/src/actions/userActions";
+import React from "react";
+import { notFound } from "next/navigation";
 
-export default function Profile(){
-    const {user} = useCurrentUser();
+
+export default async function Profile({ params }:any){
+    const { id } = await params
+    const user = await fetchUserInfo(id);
+    
+    if(!user) return notFound();
 
     const formattedDate = user?.createdAt
         ? new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
@@ -18,11 +22,11 @@ export default function Profile(){
     return (
         <div className="xl:col-span-4 md:col-span-7 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
             <div className="flex p-2 gap-3 items-center">
-                <button className="text-xl hover:bg-gray-900 transition-all duration-200 ease-linear flex items-center justify-center w-10 h-10 rounded-full">
+                <button  className="text-xl hover:bg-gray-900 transition-all duration-200 ease-linear flex items-center justify-center w-10 h-10 rounded-full">
                     <IoArrowBackOutline/>
                 </button>
                 <div>
-                    <h1 className="text-xl font-semibold">Hemant Sharma</h1>
+                    <h1 className="text-xl font-semibold">{user?.firstName} {user?.lastName}</h1>
                     <p className="text-gray-700">Software Engineer</p>
                 </div>
             </div>
@@ -32,7 +36,6 @@ export default function Profile(){
                 alt="Background Image"
                 width={450}
                 height={300}
-                objectFit="cover"
                 className="h-36 object-cover"
                 />
                 <Image
@@ -44,7 +47,7 @@ export default function Profile(){
                 />
             </div>
             <div className="mt-10 px-4 border-b border-gray-800">
-                <h1 className="text-xl font-semibold">Hemant Sharma</h1>
+                <h1 className="text-xl font-semibold">{user?.firstName} {user?.lastName}</h1>
                 <p className="text-gray-700">@username</p>
                 <div className="flex items-center gap-2 my-5">
                     <PiCalendarDotsLight className="text-gray-700 text-lg"/>
