@@ -13,9 +13,9 @@ export default async function Profile({ params }:any){
     const { id } = await params
     const user = await fetchUserInfo(id);
     
-    if(!user) return notFound();
+    if(!user) return notFound(); 
 
-    const formattedDate = user?.createdAt
+    const userJoinedDate = user?.createdAt
         ? new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
         : 'Unknown';
 
@@ -51,12 +51,15 @@ export default async function Profile({ params }:any){
                 <p className="text-gray-700">@username</p>
                 <div className="flex items-center gap-2 my-5">
                     <PiCalendarDotsLight className="text-gray-700 text-lg"/>
-                    <p className="text-gray-700">Joined <span>{formattedDate}</span></p>
+                    <p className="text-gray-700">Joined <span>{userJoinedDate}</span></p>
                 </div>
             </div>
             {
-                user?.tweets?.map(tweet => tweet ? <FeedCard key={tweet?.id} data={tweet as Tweet}/> : null)
+                user?.tweets
+                    ?.sort((a:any, b:any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                    .map(tweet => tweet ? <FeedCard key={tweet.id} data={tweet as Tweet}/> : null)
             }
+
         </div>
     )
 }

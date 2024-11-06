@@ -16,6 +16,12 @@ interface feedCardProp {
 
 const FeedCard: React.FC<feedCardProp> = (props) => {
     const { data } = props;
+
+    const postCreatedDate = data.createdAt
+        ? new Date(data.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : 'Unknown';
+
+
     return (
         <>
             <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
@@ -32,8 +38,19 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
                     <Link href={`/${data.author?.id}`} className="font-semibold">
                         {data.author?.firstName} {data.author?.lastName}
                     </Link>
-                    <div>
+                    <p className="text-sm text-gray-600">{postCreatedDate}</p>
+                    <div className="my-2">
                         {data.content}
+                        {
+                            data.imageURL && 
+                            <Image
+                                src={data.imageURL}
+                                alt="Post Image"
+                                width={300}
+                                height={200}
+                                className="my-1 w-56 sm:w-72 md:w-80"
+                            />
+                        }
                     </div>
                     <div className="flex w-fit sm:gap-14 gap-10 mt-1">
                         <div className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-pink-400 hover:bg-opacity-30 hover:text-pink-600 transition-all cursor-pointer duration-200 ease-linear">

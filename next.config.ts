@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     domains: [
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
-      "media.istockphoto.com"
+      "media.istockphoto.com",
+      "hemant-social.s3.ap-south-1.amazonaws.com"
     ]
   }
 };
