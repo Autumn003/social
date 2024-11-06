@@ -14,7 +14,7 @@ import axios from "axios";
 
 export default function CreatePost () {
     const {user} = useCurrentUser();
-    const { mutate } = useCreateTweet();
+    const { mutateAsync } = useCreateTweet();
 
     const [content, setContent] = useState("");
     const [imageURL, setImageURL] = useState("");
@@ -60,12 +60,14 @@ export default function CreatePost () {
         input.click();
     }, [handleInputChangeFile]);
 
-    const handleCreatePost = () => {
+    const handleCreatePost = async() => {
         if(!content) return toast.error("Please enter something to post");
-        mutate({
+        await mutateAsync({
         content,
         imageURL
         })
+        setContent("");
+        setImageURL("");
     }
 
     return (
