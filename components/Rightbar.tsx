@@ -7,6 +7,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import toast from "react-hot-toast";
+import UserRecommendationCard from "./UserRecommendationCard";
 
 
 
@@ -38,7 +39,7 @@ export const Rightbar = () => {
       {user === null ? (<div>
           <h1 className="font-semibold text-xl mb-5 mt-2">Sign In</h1>
           <GoogleLogin onSuccess={handleLoginWithGoogle}/>
-        </div>): <div></div> }
+        </div>): <UserRecommendationCard /> }
       </div>
     )
 }
