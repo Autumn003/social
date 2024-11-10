@@ -1,3 +1,4 @@
+
 import { IoArrowBackOutline } from "react-icons/io5";
 import { PiCalendarDotsLight } from "react-icons/pi";
 import Image from "next/image"
@@ -7,6 +8,7 @@ import { Tweet } from "@/gql/graphql";
 import { fetchUserInfo } from "@/src/actions/userActions";
 import React from "react";
 import { notFound } from "next/navigation";
+import FollowBtn from "@/components/FollowBtn";
 
 
 export default async function Profile({ params }:any){
@@ -52,6 +54,13 @@ export default async function Profile({ params }:any){
                 <div className="flex items-center gap-2 my-5">
                     <PiCalendarDotsLight className="text-gray-700 text-lg"/>
                     <p className="text-gray-700">Joined <span>{userJoinedDate}</span></p>
+                </div>
+                <div className="flex justify-between my-3 items-center">
+                    <div className="flex gap-3">
+                        <p><span>{user.followers?.length}</span> followers</p>
+                        <p><span>{user.followings?.length}</span> followings</p>
+                    </div>
+                    <FollowBtn id={user.id}/>
                 </div>
             </div>
             {
