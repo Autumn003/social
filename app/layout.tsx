@@ -33,14 +33,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleOAuthProvider clientId={googleAuthClientID}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-950`}>
         <ClientProviders>
           <div className="grid grid-cols-12">
-            <div className="xl:col-span-2 md:col-span-1 md:block hidden"></div>
+            <div className="md:col-span-1 md:block hidden"></div>
             <Leftbar/>
             {children}
             <Rightbar/>
-            <div className="xl:col-span-2 md:col-span-1 md:block hidden"></div>
+            <div className="md:col-span-1 md:block hidden"></div>
 
           </div>
         </ClientProviders>

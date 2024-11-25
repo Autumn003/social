@@ -33,11 +33,6 @@ export const Leftbar = () =>{
           icon: <RiHome6Fill />,
         },
         {
-          title: "Explore",
-          link: "/",
-          icon: <FaHashtag />,
-        },
-        {
           title: "Notifications",
           link: "/",
           icon: <RiNotification4Line />,
@@ -86,7 +81,7 @@ export const Leftbar = () =>{
 
     return (
         <div className="xl:col-span-2 md:col-span-3 col-span-2 h-screen py-5 relative">
-        <div className=" rounded-full mx-auto md:mx-0 overflow-hidden hover:bg-gray-800 w-fit transition-all cursor-pointer">
+        <div className=" rounded-full mx-auto md:mx-0 overflow-hidden hover:bg-neutral-900 w-fit transition-all cursor-pointer">
           <FaTwitter className="text-5xl my-auto p-2"/>
         </div>
         <div>
@@ -95,7 +90,7 @@ export const Leftbar = () =>{
             <li key={item.title} >
               <Link
               href={item.link}
-              className="flex items-center md:mx-0 mx-auto gap-2 md:my-1 my-4 hover:bg-gray-900 hover:bg-opacity-60 w-fit py-2 px-3 rounded-xl transition-all ease-out duration-300 cursor-pointer"
+              className="flex items-center md:mx-0 mx-auto gap-2 md:my-1 my-4 hover:bg-neutral-900 hover:bg-opacity-60 w-fit py-2 px-3 rounded-xl transition-all ease-out duration-300 cursor-pointer"
               >
                 <span className="text-lg">{item.icon}</span>
                 <span className="text-lg md:block hidden">{item.title}</span>
@@ -143,6 +138,15 @@ export const Leftbar = () =>{
       <GoogleLogin
       shape="circle"
       type="icon"
+      onSuccess={handleLoginWithGoogle}/>
+    </div>
+    <div className="md:flex hidden absolute justify-center items-center bottom-5 left-0 h-16 w-48">
+      <GoogleLogin
+      size="large"
+      type="standard"
+      width={24}
+      text="continue_with"
+      shape="pill"
       onSuccess={handleLoginWithGoogle}/>
     </div>
   </div>
