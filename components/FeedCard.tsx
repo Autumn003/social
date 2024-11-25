@@ -25,13 +25,13 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
     return (
         <>
             <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
-                <Link href={`/${data.author?.id}`} className=" col-span-2 mx-auto">
+                <Link href={`/${data.author?.id}`} className=" col-span-2 md:col-span-1 mx-auto">
                     <Image
                     src={data.author?.profileImageURL || avatar}
                     width={40}
                     height={40}
                     alt="avatar"
-                    className="rounded-full"
+                    className="rounded-full w-8 md:w-10"
                     />
                 </Link>
                 <div className="col-span-10">
@@ -48,7 +48,7 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
                                 alt="Post Image"
                                 width={300}
                                 height={200}
-                                className="my-1 w-56 sm:w-72 md:w-80"
+                                className="my-1 w-56 sm:w-72 md:w-full rounded-lg"
                             />
                         }
                     </div>

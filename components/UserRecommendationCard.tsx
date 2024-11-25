@@ -11,13 +11,13 @@ export default function UserRecommendationCard() {
         return null;
     return(
         <div>
-            <div className="bg-gray-900 p-2 w-56 h-64 rounded-lg overflow-y-scroll no-scrollbar">
+            <div className="bg-neutral-900 bg-opacity-40 p-2 w-full h-64 rounded-lg overflow-y-scroll no-scrollbar">
                 <h1 className="text-lg font-semibold border-b mb-4 w-fit mx-auto">Users you may know</h1>
                 {user && user.recommendations?.map((recommendedUser) => {
                     return (
                         <div
                         key={recommendedUser?.id}
-                        className="bg-gray-800 flex items-center gap-2 rounded-md p-2"
+                        className="bg-neutral-800 bg-opacity-60 flex items-center gap-2 rounded-md p-2"
                         >
                             <Image
                             src={recommendedUser?.profileImageURL || avatar}

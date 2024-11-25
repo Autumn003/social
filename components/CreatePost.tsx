@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { graphQLClient } from "@/clients/api";
 import { getSignedURLForTweetQuery } from "@/graphql/query/tweet";
 import axios from "axios";
+import { Button } from "./Button";
 
 
 export default function CreatePost () {
@@ -72,16 +73,16 @@ export default function CreatePost () {
 
     return (
         <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
-            <div className=" col-span-2 mx-auto">
+            <div className=" col-span-2 md:col-span-1 mx-auto">
                 <Image
                 src={user?.profileImageURL || avatar}
                 width={40}
                 height={40}
                 alt="avatar"
-                className="rounded-full"
+                className="rounded-full w-8 md:w-10"
                 />
             </div>
-            <div className="col-span-10">
+            <div className="col-span-10 md:col-span-11 mr-4">
                 <textarea
                 value={content}
                 onChange={e => setContent(e.target.value)}
@@ -98,9 +99,10 @@ export default function CreatePost () {
                 className="my-2 hover:bg-gray-900 p-3 rounded-full transition-all duration-200"
                 ><FaImage/>
                 </button>
-                <button
-                onClick={handleCreatePost}
-                className="bg-sky-500 mx-5 w-16 h-8 text-center rounded-full hover:bg-sky-600 transition-all duration-200">Post</button>
+                <Button 
+                  placeholder="Post"
+                  onClick={handleCreatePost}
+                />
                 </div>
             </div>
         </div>

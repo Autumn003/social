@@ -110,7 +110,7 @@ export const Leftbar = () =>{
         </button>
         {user ? (
           <div className="w-full flex justify-center md:justify-normal">
-          <div className="bg-gray-900 bg-opacity-40 md:w-48 md:h-16 p-2 rounded-full flex gap-2 items-center absolute bottom-5 ">
+          <div className="bg-neutral-800 bg-opacity-40 md:w-48 md:h-16 md:p-2 p-1 rounded-full flex gap-2 items-center absolute bottom-5 ">
             
               <Image 
               src={user?.profileImageURL || avatar}

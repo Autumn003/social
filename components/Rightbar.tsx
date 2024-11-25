@@ -35,7 +35,7 @@ export const Rightbar = () => {
       )
 
     return (
-        <div className="sm:col-span-2 xl:block hidden h-screen p-4 text-center">
+        <div className="sm:col-span-3 xl:block hidden h-screen p-4 text-center">
           <UserRecommendationCard />
         </div>
     )

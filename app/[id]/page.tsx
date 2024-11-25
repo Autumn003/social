@@ -22,7 +22,7 @@ export default async function Profile({ params }:any){
         : 'Unknown';
 
     return (
-        <div className="xl:col-span-4 md:col-span-7 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
+        <div className="xl:col-span-6 md:col-span-7 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
             <div className="flex p-2 gap-3 items-center">
                 <button  className="text-xl hover:bg-gray-900 transition-all duration-200 ease-linear flex items-center justify-center w-10 h-10 rounded-full">
                     <IoArrowBackOutline/>
@@ -38,14 +38,14 @@ export default async function Profile({ params }:any){
                 alt="Background Image"
                 width={450}
                 height={300}
-                className="h-36 object-cover"
+                className="h-36 object-cover w-full"
                 />
                 <Image
                 src={user?.profileImageURL || avatar}
                 alt="Avatar"
                 width={90}
                 height={90}
-                className="absolute -bottom-10 p-1 bg-gray-900 rounded-full mx-5"
+                className="absolute -bottom-10 p-[1.5px] from-blue-500  via-emerald-600 to-fuchsia-600 bg-gradient-to-br rounded-full mx-5"
                 />
             </div>
             <div className="mt-10 px-4 border-b border-gray-800">
