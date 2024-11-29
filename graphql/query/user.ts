@@ -86,3 +86,20 @@ export const getUserByIdQuery = graphql(`
         }
     }    
 `)
+
+export const getUserBookmarksQuery = graphql(`
+    query getUserBookmarks {
+        getUserBookmarks {
+            id
+            content
+            imageURL
+            createdAt
+            author {
+                id
+                profileImageURL
+                firstName
+                lastName
+            }
+        }
+    }    
+`)

@@ -44,7 +44,7 @@ export const Leftbar = () =>{
         },
         {
           title: "Bookmarks",
-          link: "/",
+          link: "/bookmarks",
           icon: <FaRegBookmark />,
         },
         {

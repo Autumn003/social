@@ -1,5 +1,5 @@
 import { graphQLClient } from "@/clients/api";
-import { getCurrentUserQuery, getUserByIdQuery } from "@/graphql/query/user";
+import { getCurrentUserQuery, getUserBookmarksQuery, getUserByIdQuery } from "@/graphql/query/user";
 import { useQuery } from "@tanstack/react-query";
 
 export const useCurrentUser = () => {
@@ -18,3 +18,12 @@ export const useGetUserById = (id: string) => {
   });
   return { ...query, user: query.data?.getUserById };
 };
+
+export const useGetUserBookmarks = () => {
+  const query = useQuery({
+    queryKey: ["getUserBookmarks"],
+    queryFn: () => graphQLClient.request(getUserBookmarksQuery),
+  });
+
+  return {...query, bookmarks: query.data?.getUserBookmarks}
+}
