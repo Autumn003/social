@@ -22,7 +22,7 @@ export default async function Profile({ params }:any){
         : 'Unknown';
 
     return (
-        <div className="xl:col-span-6 md:col-span-7 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
+        <div className="xl:col-span-5 md:col-span-7 col-span-10 border-x border-gray-800 h-screen overflow-y-scroll no-scrollbar">
             <div className="flex p-2 gap-3 items-center">
                 <button  className="text-xl hover:bg-gray-900 transition-all duration-200 ease-linear flex items-center justify-center w-10 h-10 rounded-full">
                     <IoArrowBackOutline/>
