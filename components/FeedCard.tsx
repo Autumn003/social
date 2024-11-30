@@ -1,12 +1,13 @@
 import React from "react"
 import Image from "next/image"
 import { FaRegComment } from "react-icons/fa";
-import { FaRegBookmark, FaRegHeart } from "react-icons/fa6";
+import { FaBookmark, FaRegBookmark, FaRegHeart } from "react-icons/fa6";
 import { HiOutlineShare } from "react-icons/hi";
 import { Tweet } from "@/gql/graphql";
 import avatar from "@/public/user.png"
 import Link from "next/link";
-import { useCreateBookmark } from "@/hooks/user";
+import { useCreateBookmark, useCurrentUser, useDeleteBookmark } from "@/hooks/user";
+import { useGetAllTweets } from "@/hooks/tweet";
 
 
 interface feedCardProp {
@@ -17,15 +18,29 @@ interface feedCardProp {
 const FeedCard: React.FC<feedCardProp> = (props) => {
     const { data } = props;
     const { mutate } = useCreateBookmark();
+    const { mutate: deleteBookmark } = useDeleteBookmark();
+    const { user } = useCurrentUser();
+
+    const isBookmarked = data.bookmarkedBy?.some(
+        (bookmarkUser) => bookmarkUser?.id === user?.id
+    );
+    
+    console.log("User has bookmarked this post:", isBookmarked);
 
     const postCreatedDate = data.createdAt
         ? new Date(data.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         : 'Unknown';
 
-    const handleBookmark = () => {
+    const handleAddBookmark = () => {
         if(!data.id) return;
         
         mutate(data.id);
+    }
+
+    const handleDeleteBookmark = async() => {
+        if (!data.id) return;
+
+        deleteBookmark(data.id);
     }
 
 
@@ -71,9 +86,9 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
                             <HiOutlineShare className="text-lg "/>
                         </div>
                         <button
-                        onClick={() => handleBookmark()}
-                        className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-sky-400 hover:bg-opacity-30 hover:text-blue-500 transition-all cursor-pointer duration-200 ease-linear">
-                            <FaRegBookmark className="text-lg "/>
+                        onClick={() => isBookmarked ? handleDeleteBookmark() : handleAddBookmark()}
+                        className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-neutral-300 hover:bg-opacity-30 hover:text-neutral-300 transition-all cursor-pointer duration-200 ease-linear">
+                            {isBookmarked ? <FaBookmark className="text-lg "/> : <FaRegBookmark className="text-lg "/>}
                         </button>
                     </div>
                 </div>

@@ -46,6 +46,9 @@ export const getCurrentUserQuery = graphql(`
                     profileImageURL
                 }
             }
+            bookmarks {
+              id
+            }
         }
     }
 `)
