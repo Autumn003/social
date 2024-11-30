@@ -4,6 +4,9 @@ import { FaBookmark} from "react-icons/fa6";
 import { Tweet } from "@/gql/graphql";
 import avatar from "@/public/user.png"
 import Link from "next/link";
+import { useDeleteBookmark } from "@/hooks/user";
+import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 interface bookmarkCardProp {
@@ -13,10 +16,14 @@ interface bookmarkCardProp {
 
 const BookmarkCard: React.FC<bookmarkCardProp> = (props) => {
     const { data } = props;
+    const {mutate} = useDeleteBookmark();
+
+    const queryClient = useQueryClient();
 
     const handleDeleteBookmark = async() => {
-        console.log("Bookmark deleted");
-        
+        if (!data.id) return;
+
+        mutate(data.id);
     }
 
     const postCreatedDate = data.createdAt
