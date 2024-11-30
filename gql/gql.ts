@@ -17,6 +17,7 @@ const documents = {
     "\n  #graphql\n  mutation createTweet($payload: CreateTweetData!) {\n    createTweet(payload: $payload) {\n      id\n    }\n  }\n": types.CreateTweetDocument,
     "\n    #graphql\n    mutation FollowUser($to: String!) {\n        followUser(to: $to)\n    }\n": types.FollowUserDocument,
     "\n    #graphql\n    mutation UnfollowUser($to: String!) {\n        unfollowUser(to: $to)\n    }\n": types.UnfollowUserDocument,
+    "\n    #graphql\n    mutation createBookmark($tweetId: String!) {\n        createBookmark(tweetId: $tweetId) {\n            id\n        }\n    }\n": types.CreateBookmarkDocument,
     "\n    #graphql\n    mutation deleteBookmark($tweetId: String!) {\n        deleteBookmark(tweetId: $tweetId)\n    }\n": types.DeleteBookmarkDocument,
     "\n    #graphql\n    query getAllTweets {\n        getAllTweets {\n            id\n            content\n            imageURL\n            createdAt\n            author {\n                id\n                firstName\n                lastName\n                profileImageURL\n            }\n        }\n    }\n": types.GetAllTweetsDocument,
     "\n    #graphql\n    query GetSinedURL($imageName: String!, $imageType: String!) {\n        getSignedURLForTweet(imageName: $imageName, imageType: $imageType)\n    }    \n": types.GetSinedUrlDocument,
@@ -52,6 +53,10 @@ export function graphql(source: "\n    #graphql\n    mutation FollowUser($to: St
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    #graphql\n    mutation UnfollowUser($to: String!) {\n        unfollowUser(to: $to)\n    }\n"): (typeof documents)["\n    #graphql\n    mutation UnfollowUser($to: String!) {\n        unfollowUser(to: $to)\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    #graphql\n    mutation createBookmark($tweetId: String!) {\n        createBookmark(tweetId: $tweetId) {\n            id\n        }\n    }\n"): (typeof documents)["\n    #graphql\n    mutation createBookmark($tweetId: String!) {\n        createBookmark(tweetId: $tweetId) {\n            id\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

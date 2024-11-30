@@ -15,12 +15,14 @@ export const unfollowUserMutation = graphql(`
     }
 `);
 
-// export const createBookmarkMutaion = graphql(`
-//     #graphql
-//     mutation createBookmark($tweetId: String!) {
-//         createBookmark(tweetId: $tweetId)
-//     }
-// `);
+export const createBookmarkMutaion = graphql(`
+    #graphql
+    mutation createBookmark($tweetId: String!) {
+        createBookmark(tweetId: $tweetId) {
+            id
+        }
+    }
+`);
 
 export const deleteBookmarkMutaion = graphql(`
     #graphql

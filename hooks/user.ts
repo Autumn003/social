@@ -1,6 +1,5 @@
 import { graphQLClient } from "@/clients/api";
-import { Bookmark } from "@/gql/graphql";
-import { deleteBookmarkMutaion } from "@/graphql/mutation/user";
+import { createBookmarkMutaion, deleteBookmarkMutaion } from "@/graphql/mutation/user";
 import { getCurrentUserQuery, getUserBookmarksQuery, getUserByIdQuery } from "@/graphql/query/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -31,6 +30,20 @@ export const useGetUserBookmarks = () => {
   return {...query, bookmarks: query.data?.getUserBookmarks}
 }
 
+export const useCreateBookmark = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (tweetId: string) => 
+      graphQLClient.request(createBookmarkMutaion, { tweetId }),
+    onSuccess: async() => {
+      toast.success("Bookmark Added");
+      await queryClient.invalidateQueries({queryKey: ["getUserBookmarks"]});
+    },
+    onError: () => toast.error("Failed to Add bookmark!"),
+  });
+};
+
 export const useDeleteBookmark = () => {
   const queryClient = useQueryClient();
 
@@ -41,6 +54,6 @@ export const useDeleteBookmark = () => {
       await queryClient.invalidateQueries({queryKey: ["getUserBookmarks"]});
       toast.success("Bookmark removed");
     },
-    onError: (error) => toast.error("Failed to remove bookmark!"),
+    onError: () => toast.error("Failed to remove bookmark!"),
   });
 };

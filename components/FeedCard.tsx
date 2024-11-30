@@ -1,12 +1,12 @@
 import React from "react"
 import Image from "next/image"
 import { FaRegComment } from "react-icons/fa";
-import { FaRegHeart } from "react-icons/fa6";
-import { FaRetweet } from "react-icons/fa6";
+import { FaRegBookmark, FaRegHeart } from "react-icons/fa6";
 import { HiOutlineShare } from "react-icons/hi";
 import { Tweet } from "@/gql/graphql";
 import avatar from "@/public/user.png"
 import Link from "next/link";
+import { useCreateBookmark } from "@/hooks/user";
 
 
 interface feedCardProp {
@@ -16,10 +16,17 @@ interface feedCardProp {
 
 const FeedCard: React.FC<feedCardProp> = (props) => {
     const { data } = props;
+    const { mutate } = useCreateBookmark();
 
     const postCreatedDate = data.createdAt
         ? new Date(data.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         : 'Unknown';
+
+    const handleBookmark = () => {
+        if(!data.id) return;
+        
+        mutate(data.id);
+    }
 
 
     return (
@@ -61,11 +68,13 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
                             <FaRegComment className="text-lg "/>
                         </div>
                         <div className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-teal-300 hover:bg-opacity-30 hover:text-teal-400 transition-all cursor-pointer duration-200 ease-linear">
-                            <FaRetweet className="text-lg "/>
-                        </div>
-                        <div className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-sky-400 hover:bg-opacity-30 hover:text-blue-500 transition-all cursor-pointer duration-200 ease-linear">
                             <HiOutlineShare className="text-lg "/>
                         </div>
+                        <button
+                        onClick={() => handleBookmark()}
+                        className="h-8 w-8 flex justify-center rounded-full items-center hover:bg-sky-400 hover:bg-opacity-30 hover:text-blue-500 transition-all cursor-pointer duration-200 ease-linear">
+                            <FaRegBookmark className="text-lg "/>
+                        </button>
                     </div>
                 </div>
             </div>
