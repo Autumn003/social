@@ -61,7 +61,7 @@ const BookmarkCard: React.FC<bookmarkCardProp> = (props) => {
                 <Link
                 href={`/post/${data.id}`}
                 className="">
-                    <div className="my-2">
+                    <div className="my-2 mx-10 max-h-96 overflow-hidden">
                         {data.content}
                         {
                             data.imageURL && 
