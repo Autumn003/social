@@ -1,7 +1,8 @@
 "use client"
 
 import { BsThreeDots } from "react-icons/bs"
-import { FaHashtag, FaRegBookmark, FaRegEnvelope, FaRegUser, FaTwitter } from "react-icons/fa6"
+import { FaRegBookmark, FaRegEnvelope, FaRegUser, FaTwitter } from "react-icons/fa6"
+import { MdSlowMotionVideo } from "react-icons/md";
 import { RiHome6Fill, RiNotification4Line } from "react-icons/ri"
 import { IoSend } from "react-icons/io5";
 import Image from "next/image"
@@ -33,14 +34,19 @@ export const Leftbar = () =>{
           icon: <RiHome6Fill />,
         },
         {
-          title: "Notifications",
+          title: "Meet",
           link: "/",
-          icon: <RiNotification4Line />,
+          icon: <MdSlowMotionVideo className="text-xl" />,
         },
         {
           title: "Messages",
           link: "/",
           icon: <FaRegEnvelope />,
+        },
+        {
+          title: "Notifications",
+          link: "/",
+          icon: <RiNotification4Line />,
         },
         {
           title: "Bookmarks",
@@ -51,11 +57,6 @@ export const Leftbar = () =>{
           title: "Profile",
           link: `${user?.id}`,
           icon: <FaRegUser />,
-        },
-        {
-          title: "More",
-          link: "/",
-          icon: <BsThreeDots />,
         },
       ],
       [user?.id]
