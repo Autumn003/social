@@ -5,6 +5,7 @@ import { Tweet } from "@/gql/graphql";
 import avatar from "@/public/user.png"
 import Link from "next/link";
 import { useDeleteBookmark } from "@/hooks/user";
+import { motion } from "motion/react";
 
 
 interface bookmarkCardProp {
@@ -26,9 +27,21 @@ const BookmarkCard: React.FC<bookmarkCardProp> = (props) => {
         ? new Date(data.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         : 'Unknown';
 
+    const feedcardAnimation = {
+        initial: {opacity: 0},
+        inView: {opacity: 1}
+    }
+
     return (
         <>
-            <div
+            <motion.div
+            initial='initial'
+            whileInView='inView'
+            transition={{
+              opacity: { duration: 0.25 , ease: 'easeIn', }, 
+             }}
+            viewport={{once: true}}
+            variants={feedcardAnimation}
             className=" px-4 py-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
                 <div className="flex gap-2 items-center">
                     <Link href={`/${data.author?.id}`}>
@@ -75,7 +88,7 @@ const BookmarkCard: React.FC<bookmarkCardProp> = (props) => {
                         }
                     </div>
                 </Link>
-            </div>
+            </motion.div>
         </>
     )
 }

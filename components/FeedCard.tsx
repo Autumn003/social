@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { FaRegComment } from "react-icons/fa";
 import { FaBookmark, FaRegBookmark, FaRegHeart } from "react-icons/fa6";
@@ -70,9 +71,22 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
     });
   };
 
+  const feedcardAnimation = {
+    initial: {opacity: 0},
+    inView: {opacity: 1}
+  }
+
   return (
     <>
-      <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
+      <motion.div 
+      initial='initial'
+      whileInView='inView'
+      transition={{
+        opacity: { duration: 0.25 , ease: 'easeIn', }, 
+       }}
+      viewport={{once: true}}
+      variants={feedcardAnimation}
+      className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
         <Link
           href={`/${data.author?.id}`}
           className=" col-span-2 md:col-span-1 mx-auto"
@@ -126,7 +140,7 @@ const FeedCard: React.FC<feedCardProp> = (props) => {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

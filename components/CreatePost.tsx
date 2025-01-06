@@ -11,6 +11,7 @@ import { graphQLClient } from "@/clients/api";
 import { getSignedURLForTweetQuery } from "@/graphql/query/tweet";
 import axios from "axios";
 import { Button } from "./Button";
+import { motion } from "motion/react";
 
 
 export default function CreatePost () {
@@ -71,9 +72,18 @@ export default function CreatePost () {
         setImageURL("");
     }
 
+    const textareaAnimate = {
+      focus: {  backdropFilter: "blur(8px)",
+        scale: 1.1,
+        transition: { duration: 0.15 } 
+      },
+    }
+
     return (
         <div className="grid grid-cols-12 p-2 border-b border-gray-900 hover:bg-opacity-20 hover:bg-stone-900 cursor-pointer transition-all ease-linear duration-200">
-            <div className=" col-span-2 md:col-span-1 mx-auto">
+            <div
+            
+            className=" col-span-2 md:col-span-1 mx-auto">
                 <Image
                 src={user?.profileImageURL || avatar}
                 width={40}
@@ -83,13 +93,15 @@ export default function CreatePost () {
                 />
             </div>
             <div className="col-span-10 md:col-span-11 mr-4">
-                <textarea
+                <motion.textarea
+                whileFocus='focus'
+                variants={textareaAnimate}
                 value={content}
                 onChange={e => setContent(e.target.value)}
                 placeholder="What's happening?"
-                className="w-full p-2 border-b border-gray-800 bg-transparent focus:outline-none tracking-wider font-sans"
+                className="w-full p-2 border-b border-gray-800 bg-transparent focus:outline-none tracking-wider font-sans rounded-lg"
                 rows={3}
-                ></textarea>
+                ></motion.textarea>
                 {
                     imageURL && <Image src={imageURL} alt="Post Image" width={300} height={300} />
                 }
